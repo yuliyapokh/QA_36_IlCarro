@@ -2,6 +2,7 @@ package tests;
 
 import model.User;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,34 +22,42 @@ public class RegistrationTests extends TestBase{
     public void registrationSuccess(){
         Random random = new Random();
         int i = random.nextInt(1000);
-        User user = new User().withName("Lisa").withLastName("Simpson").withEmail("lisa"+i+"@mail.com").withPassword("Lisa12345$");
+        User user = new User().withName("Yuli").withLastName("Petriakov").withEmail("yuli"+i+"@i.ua").withPassword("Yuli12345!");
 
           app.getHelperUser().openRegistrationForm();
           app.getHelperUser().fillRegistrationForm(user);
           app.getHelperUser().checkPolicy();
           app.getHelperUser().submit();
-        //Assert
+          Assert.assertEquals(app.getHelperUser().getMessage(),"You are logged in success");
+
     }
     @Test
     public void registrationWrongEmail(){
 
-        User user = new User().withName("Lisa").withLastName("Simpson").withEmail("lisamail.com").withPassword("Lisa12345$");
+        User user = new User().withName("Juli").withLastName("Pokh").withEmail("pokhi.ua").withPassword("Jul12345!");
 
         app.getHelperUser().openRegistrationForm();
         app.getHelperUser().fillRegistrationForm(user);
         app.getHelperUser().checkPolicy();
         app.getHelperUser().submit();
-        //Assert
+        Assert.assertTrue(app.getHelperUser().IsEmailOrPassOk());
+
     }
     @Test
     public void registrationWrongPassword(){
 
-        User user = new User().withName("Lisa").withLastName("Simpson").withEmail("lisa@mail.com").withPassword("Li");
+        User user = new User().withName("Juli").withLastName("Pokh").withEmail("pokh@i.ua").withPassword("12345!");
 
          app.getHelperUser().openRegistrationForm();
          app.getHelperUser().fillRegistrationForm(user);
          app.getHelperUser().checkPolicy();
          app.getHelperUser().submit();
-        //Assert
+         Assert.assertTrue(app.getHelperUser().IsEmailOrPassOk());
+
+    }
+
+    @AfterMethod
+    public void postCondition(){
+        app.getHelperUser().closeDialogContainer();
     }
 }

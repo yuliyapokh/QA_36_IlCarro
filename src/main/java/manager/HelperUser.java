@@ -63,4 +63,19 @@ public class HelperUser extends HelperBase{
         // return isElementPresent(By.cssSelector("button[disabled]"));
         return !wd.findElement(By.cssSelector("button[disabled]")).isEnabled();
     }
+
+    public void openRegistrationForm() {
+        click(By.cssSelector(".navigation-link:nth-child(5)"));
+    }
+
+    public void fillRegistrationForm(User user) {
+      type(By.cssSelector("#name"), user.getName());
+      type(By.cssSelector("#lastName"), user.getLastName());
+      type(By.cssSelector("#email"), user.getEmail());
+      type(By.cssSelector("#password"), user.getPassword());
+    }
+
+    public void checkPolicy() {
+        click(By.cssSelector("label[for='terms-of-use']"));
+    }
 }

@@ -54,7 +54,7 @@ public class LoginTests extends TestBase{
         app.getHelperUser().openFormLogin();
         app.getHelperUser().fillLoginForm(user);
         app.getHelperUser().submit();
-        Assert.assertEquals(app.getHelperUser().getMessage(),"\"Login or Password incorrect\"");
+        Assert.assertEquals(app.getHelperUser().getMessage(),"Login or Password incorrect");
     }
     @Test
 
